@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        body: ["Epilogue", "sans-serif;"],
+        primary: ["Epilogue", "sans-serif"],
       },
       colors: {
         primary: "#1DC071",
@@ -17,8 +17,19 @@ module.exports = {
         white: "#FFFFFF",
         whiteSoft: "#FCFBFF",
         graySoft: "#FCFCFC",
+        grayf3: "#f3f3f3",
         strock: "#F1F1F3",
-        life: "#FCFCFD",
+        lite: "#FCFCFD",
+        error: "#EB5757",
+        darkbg: "#13131A",
+        darkSecondary: "#1C1C24",
+        softDark: "#22222C",
+        darkSoft: "#24242C",
+        darkStroke: "#3A3A43",
+        darkRed: "#422C32",
+      },
+      boxShadow: {
+        sdprimary: "10px 10px 20px rgba(211, 211, 211, 0.25)",
       },
     },
   },
