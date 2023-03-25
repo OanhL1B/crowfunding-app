@@ -3,7 +3,7 @@ import { useController } from "react-hook-form";
 import PropTypes from "prop-types";
 
 const Input = (props) => {
-  const { control, name, type } = props;
+  const { control, name, type = "text", ...rest } = props;
   const { field } = useController({
     control,
     name,
@@ -12,8 +12,10 @@ const Input = (props) => {
   return (
     <div className="relative">
       <input
+        id="name" // khi bấm vào sẽ focus vào ô bên dưới
         type={type}
         className="w-full px-6 py-4 text-sm font-medium border rounded-xl border-strock text-text1 placeholder:text-text-4"
+        {...rest}
         {...field}
       />
     </div>
