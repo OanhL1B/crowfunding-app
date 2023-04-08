@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Input } from "components/input";
@@ -6,15 +6,30 @@ import { Label } from "components/label";
 import LayoutAuthentication from "layouts/LayoutAuthentication";
 import FormGroup from "components/common/FormGroup";
 import { Button } from "components/button";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import CheckBox from "components/checkbox/CheckBox";
 
+const schema = yup
+  .object({
+    // name: yup.string.required("This field is required"),
+  })
+  .required();
 const SignUpPage = () => {
   const {
     handleSubmit,
     control,
-    formState: { isValid, isSubmitting },
-  } = useForm({});
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   // bắt sự kiện onsubmit
   const handleSignUp = (values) => {};
+  const [acceptTerm, setAcceptTerm] = useState(false);
+  const handleToggleTerm = () => {
+    setAcceptTerm(!acceptTerm);
+  };
+
   return (
     <LayoutAuthentication heading="SignUp">
       <p className="mb-6 text-xs font-normal text-center lg:text-sm text-text3 lg:mb-8">
@@ -54,13 +69,15 @@ const SignUpPage = () => {
           ></Input>
         </FormGroup>
         <div className="flex mb-5 item-start gap-x-5">
-          <span className="inline-block w-5 h-5 border rounded border-text4"></span>
-          <p className="flex-1 text-sm text-text2">
-            I agree to the{" "}
-            <span className="underline text-secondary">Terms of Use </span> and
-            have read and understand the{" "}
-            <span className="underline text-secondary">Privacy policy.</span>
-          </p>
+          {/* <span className="inline-block w-5 h-5 border rounded border-text4"></span> */}
+          <CheckBox name="term" checked={acceptTerm} onClick={handleToggleTerm}>
+            <p className="flex-1 text-sm text-text2">
+              I agree to the{" "}
+              <span className="underline text-secondary">Terms of Use </span>{" "}
+              and have read and understand the{" "}
+              <span className="underline text-secondary">Privacy policy.</span>
+            </p>
+          </CheckBox>
         </div>
         <Button className="w-full bg-primary" type="submit">
           Create my account
