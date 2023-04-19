@@ -1,11 +1,13 @@
-// import { defaultImage } from "constants/global";
+import { defaultImage } from "constants/global";
 import React from "react";
-// import { useState } from "react";
+import { useState } from "react";
 
 const DashboardSearch = () => {
-  //   const [showSearch, setShowSearch] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
   return (
+    // làm chuẩn
     <div className="relative z-50">
+      {/* ô search và button */}
       <div className="bg-white rounded-full shadow-[10px_10px_20px_rgba(218,_213,_213,_0.15)] p-2 w-full flex items-center ">
         <div className="flex-1 px-5">
           <input
@@ -31,7 +33,7 @@ const DashboardSearch = () => {
           </svg>
         </button>
       </div>
-      {/* {showSearch && (
+      {showSearch && (
         <div className="search-results w-full lg:w-[843px] absolute top-full left-0 bg-white z-50 translate-y-5 pb-6 rounded-3xl">
           <div className="flex items-center justify-between p-3 bg-graySoft rounded-3xl">
             <h4 className="pl-4 text-sm font-medium underline">
@@ -68,27 +70,27 @@ const DashboardSearch = () => {
             </div>
           </div>
         </div>
-      )} */}
+      )}
     </div>
   );
 };
 
-// function SearchItem() {
-//   return (
-//     <div className="flex items-center gap-x-5">
-//       <img
-//         src={defaultImage}
-//         className="w-[50px] h-[50px] rounded-lg object-cover"
-//         alt=""
-//       />
-//       <div className="flex-1 text-sm">
-//         <h3 className="mb-1">
-//           <strong>Education</strong> fund for Durgham Family
-//         </h3>
-//         <p className="text-text3">By Durgham Family</p>
-//       </div>
-//     </div>
-//   );
-// }
+function SearchItem() {
+  return (
+    <div className="flex items-center gap-x-5">
+      <img
+        src={defaultImage}
+        className="w-[50px] h-[50px] rounded-lg object-cover"
+        alt=""
+      />
+      <div className="flex-1 text-sm">
+        <h3 className="mb-1">
+          <strong>Education</strong> fund for Durgham Family
+        </h3>
+        <p className="text-text3">By Durgham Family</p>
+      </div>
+    </div>
+  );
+}
 
 export default DashboardSearch;
