@@ -9,3 +9,8 @@
     @apply outline-none;
   }
 }
+
+// khi mình focus vào thì lỗi nó sẽ mất
+input:focus + .error-input {
+  display: none;
+}

@@ -10,9 +10,19 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import CheckBox from "components/checkbox/CheckBox";
 
+// dùng usehookform
+// khởi tạo 1 schema kiểm tra các quy tắc kiểm tra dữ liệu các trường của form
 const schema = yup
   .object({
-    // name: yup.string.required("This field is required"),
+    name: yup.string().required("This field is required"),
+    email: yup
+      .string()
+      .email("Invalid email address")
+      .required("This field is reduired"),
+    password: yup
+      .string()
+      .required("This field is required")
+      .min(8, "Password must be 8 character"),
   })
   .required();
 const SignUpPage = () => {
@@ -21,15 +31,25 @@ const SignUpPage = () => {
     control,
     formState: { errors },
   } = useForm({
+    // bắt lỗi
+    // resolver các giá trị đầu vào theo schema đã định nghĩa
     resolver: yupResolver(schema),
+    // để mode để khi nào submit thì nó mới bắt lỗi nè
+    mode: "onSubmit",
   });
+  // Sử dụng hook useForm để lấy các phương thức và thuộc tính để quản lý form, bao gồm handleSubmit để xử lý sự kiện submit form,
+  // control để quản lý trạng thái của các trường form, và errors để hiển thị thông báo lỗi.
+  // Trong đoạn code trên, các thuộc tính này được gán cho biến tương ứng thông qua destructuring.
   // bắt sự kiện onsubmit
-  const handleSignUp = (values) => {};
+  const handleSignUp = (values) => {
+    console.log("value", values);
+  };
   const [acceptTerm, setAcceptTerm] = useState(false);
   const handleToggleTerm = () => {
     setAcceptTerm(!acceptTerm);
   };
 
+  console.log("error", errors);
   return (
     <LayoutAuthentication heading="SignUp">
       <p className="mb-6 text-xs font-normal text-center lg:text-sm text-text3 lg:mb-8">
@@ -48,7 +68,12 @@ const SignUpPage = () => {
       <form onSubmit={handleSubmit(handleSignUp)}>
         <FormGroup>
           <Label htmlFor="name">Full Name *</Label>
-          <Input control={control} name="name" placeholder="Jhon Doe"></Input>
+          <Input
+            control={control}
+            name="name"
+            placeholder="Join Doe"
+            error={errors.name?.message}
+          ></Input>
         </FormGroup>
         <FormGroup>
           <Label htmlFor="email">Email *</Label>
@@ -56,7 +81,7 @@ const SignUpPage = () => {
             control={control}
             name="email"
             placeholder="example@gmail.com"
-            type="email"
+            error={errors.email?.message}
           ></Input>
         </FormGroup>
         <FormGroup>
@@ -66,6 +91,7 @@ const SignUpPage = () => {
             name="password"
             placeholder="create a password"
             type="password"
+            error={errors.password?.message}
           ></Input>
         </FormGroup>
         <div className="flex mb-5 item-start gap-x-5">
