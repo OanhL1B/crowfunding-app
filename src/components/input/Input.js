@@ -1,6 +1,8 @@
 import React from "react";
 import { useController } from "react-hook-form";
 import PropTypes from "prop-types";
+import { withErrorBoundary } from "react-error-boundary";
+import ErrorComponent from "components/common/ErrorComponent";
 
 const Input = (props) => {
   const {
@@ -9,6 +11,7 @@ const Input = (props) => {
     type = "text",
     error = "",
     placeholder = "",
+    children,
     ...rest
   } = props;
   const { field } = useController({
@@ -22,10 +25,12 @@ const Input = (props) => {
       <input
         id="name" // khi bấm vào sẽ focus vào ô bên dưới
         type={type}
-        className={`w-full px-6 py-4 text-sm font-medium border rounded-xl text-text1 placeholder:text-text-4 ${
-          error.length > 0 ? "border-error" : "border-strock"
-        }`}
-        placeholder={error.length < 0 ? placeholder : ""}
+        className={`w-full px-6 py-4 text-sm font-medium border rounded-xl text-text1 dark:placeholder:text-text2 dark:text-white placeholder:text-text-4 bg-transparent ${
+          error.length > 0
+            ? "border-error"
+            : "border-strock dark:border-darkStroke"
+        } ${children ? "pr-16" : ""}`}
+        placeholder={error.length <= 0 ? placeholder : ""}
         value={error}
         {...rest}
         {...field}
@@ -33,6 +38,12 @@ const Input = (props) => {
       {error.length > 0 && (
         <span className="absolute text-sm font-medium pointer-events-none text-error top-2/4 -translate-y-2/4 left-6">
           {error}
+        </span>
+      )}
+      {/* nếu có children thì nó sẽ nằm ở đây nè */}
+      {children && (
+        <span className="absolute cursor-pointer select-none right-6 top-2/4 -translate-y-2/4">
+          {children}
         </span>
       )}
     </div>
@@ -44,4 +55,6 @@ Input.propTypes = {
   error: PropTypes.string,
   control: PropTypes.any.isRequired,
 };
-export default Input;
+export default withErrorBoundary(Input, {
+  FallbackComponent: <ErrorComponent></ErrorComponent>,
+});

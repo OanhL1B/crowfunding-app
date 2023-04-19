@@ -1,14 +1,16 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { Input } from "components/input";
-import { Label } from "components/label";
+import useToggleValue from "hooks/useToggleValue";
+import React from "react";
 import LayoutAuthentication from "layouts/LayoutAuthentication";
 import FormGroup from "components/common/FormGroup";
-import { Button } from "components/button";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import CheckBox from "components/checkbox/CheckBox";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { Label } from "components/label";
+import { Input } from "components/input";
+import { IconEyeToggle } from "components/icons";
+import { Button } from "components/button";
 
 // dùng usehookform
 // khởi tạo 1 schema kiểm tra các quy tắc kiểm tra dữ liệu các trường của form
@@ -42,14 +44,14 @@ const SignUpPage = () => {
   // Trong đoạn code trên, các thuộc tính này được gán cho biến tương ứng thông qua destructuring.
   // bắt sự kiện onsubmit
   const handleSignUp = (values) => {
-    console.log("value", values);
+    // console.log("value", values);
   };
-  const [acceptTerm, setAcceptTerm] = useState(false);
-  const handleToggleTerm = () => {
-    setAcceptTerm(!acceptTerm);
-  };
+  // customhook
+  const { value: acceptTerm, handleToggleValue: handleToggleTerm } =
+    useToggleValue();
+  const { value: showPassword, handleToggleValue: handleTogglePassword } =
+    useToggleValue();
 
-  console.log("error", errors);
   return (
     <LayoutAuthentication heading="SignUp">
       <p className="mb-6 text-xs font-normal text-center lg:text-sm text-text3 lg:mb-8">
@@ -58,11 +60,11 @@ const SignUpPage = () => {
           Sign in
         </Link>
       </p>
-      <button className="flex justify-center w-full py-4 mb-5 text-base font-semibold border item-center gap-x-3 border-strock rounded-xl text-text2">
-        <img srcSet="/icon-google.png 2x" alt="icon-google" />
+      <button className="flex justify-center w-full py-4 mb-5 text-base font-semibold border item-center gap-x-3 border-strock rounded-xl text-text2 dark:text-white dark:border-darkStroke ">
+        <img srcSet="/icon-google.png 2x " alt="icon-google" />
         <span>Sign up with google</span>
       </button>
-      <p className="mb-4 text-xs font-normal text-center lg:text-sm lg:mb-8 text-text2">
+      <p className="mb-4 text-xs font-normal text-center lg:text-sm lg:mb-8 text-text2 dark:text-white">
         Or sign up with email
       </p>
       <form onSubmit={handleSubmit(handleSignUp)}>
@@ -90,14 +92,19 @@ const SignUpPage = () => {
             control={control}
             name="password"
             placeholder="create a password"
-            type="password"
+            type={`${showPassword ? "text" : "password"}`}
             error={errors.password?.message}
-          ></Input>
+          >
+            <IconEyeToggle
+              open={showPassword}
+              onClick={handleTogglePassword}
+            ></IconEyeToggle>
+          </Input>
         </FormGroup>
         <div className="flex mb-5 item-start gap-x-5">
           {/* <span className="inline-block w-5 h-5 border rounded border-text4"></span> */}
           <CheckBox name="term" checked={acceptTerm} onClick={handleToggleTerm}>
-            <p className="flex-1 text-sm text-text2">
+            <p className="flex-1 text-xs lg:text-sm text-text2 dark:text-text3 ">
               I agree to the{" "}
               <span className="underline text-secondary">Terms of Use </span>{" "}
               and have read and understand the{" "}
