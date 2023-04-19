@@ -25,13 +25,14 @@ const Input = (props) => {
       <input
         id="name" // khi bấm vào sẽ focus vào ô bên dưới
         type={type}
-        className={`w-full px-6 py-4 text-sm font-medium border rounded-xl text-text1 dark:placeholder:text-text2 dark:text-white placeholder:text-text-4 bg-transparent ${
+        className={`w-full px-6 py-4 text-sm font-medium border rounded-xl dark:placeholder:text-text2 dark:text-white placeholder:text-text-4 bg-transparent ${
           error.length > 0
-            ? "border-error"
-            : "border-strock dark:border-darkStroke"
+            ? "border-error text-error"
+            : "border-strock text-text1 dark:border-darkStroke"
         } ${children ? "pr-16" : ""}`}
         placeholder={error.length <= 0 ? placeholder : ""}
         value={error}
+        S
         {...rest}
         {...field}
       />
