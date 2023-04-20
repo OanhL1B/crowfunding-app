@@ -36,6 +36,7 @@ const CampaignPerk = ({ showButton = false }) => {
           <p className="text-text2">Ships worldwide</p>
         </div>
       </div>
+
       {showButton && (
         <div className="mt-6">
           <Button className="w-full text-white bg-secondary">

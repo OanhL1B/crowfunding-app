@@ -5,13 +5,11 @@ import CampMeta from "./parts/CampMeta";
 import CampImage from "./parts/CampImage";
 import CampDesc from "./parts/CampDesc";
 import CampCategory from "./parts/CampCategory";
+import CampaignSupport from "./CampaignSupport";
+import CampaignPerk from "./CampaignPerk";
 import CampaignItem from "./CampaignItem";
 import CampaignGrid from "./CampaignGrid";
 import { Button } from "components/button";
-import CampaignSupport from "./CampaignSupport";
-import CampaignPerk from "./CampaignPerk";
-// import CampaignSupport from "./CampaignSupport";
-// import CampaignPerk from "./CampaignPerk";
 
 const CampaignView = () => {
   return (
