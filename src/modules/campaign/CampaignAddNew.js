@@ -16,6 +16,7 @@ import { Dropdown } from "components/dropdown";
 import { Button } from "components/button";
 // import { apiURL, imgbbAPI } from "config/config";
 import "react-quill/dist/quill.snow.css";
+import useOnChange from "hooks/useOnChange";
 // Quill.register("modules/imageUploader", ImageUploader);
 
 const categoriesData = ["architecture", "education"];
@@ -80,21 +81,22 @@ const CampaignAddNew = () => {
     setValue(name, value);
   };
   const [countries, setCountries] = useState([]);
-  // const [filterCountry, setFilterCountry] = useOnChange(500);
-  // useEffect(() => {
-  //   async function fetchCountries() {
-  //     if (!filterCountry) return;
-  //     try {
-  //       const response = await axios.get(
-  //         `https://restcountries.com/v3.1/name/${filterCountry}`
-  //       );
-  //       setCountries(response.data);
-  //     } catch (error) {
-  //       toast.error(error.message);
-  //     }
-  //   }
-  //   fetchCountries();
-  // }, [filterCountry]);
+  const [filterCountry, setFilterCountry] = useOnChange(500);
+  useEffect(() => {
+    async function fetchCountries() {
+      // chưa có gì cả thì sẽ không request
+      if (!filterCountry) return;
+      try {
+        const response = await axios.get(
+          `https://restcountries.com/v3.1/name/${filterCountry}`
+        );
+        setCountries(response.data);
+      } catch (error) {
+        toast.error(error.message);
+      }
+    }
+    fetchCountries();
+  }, [filterCountry]);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   return (
@@ -218,8 +220,9 @@ const CampaignAddNew = () => {
                 <Dropdown.List>
                   <Dropdown.Search
                     placeholder="Search country..."
-                    // onChange={setFilterCountry}
+                    onChange={setFilterCountry}
                   ></Dropdown.Search>
+                  {/* xử lý từ api trả về country */}
                   {countries.length > 0 &&
                     countries.map((country) => (
                       <Dropdown.Option
