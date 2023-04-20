@@ -18,3 +18,26 @@
 input:focus + .error-input {
   display: none;
 }
+
+.quill {
+  @apply border border-strock rounded-xl;
+  border-radius: 10px;
+  padding: 15px 25px;
+  .ql-toolbar.ql-snow {
+    border: none;
+    background: none;
+    // inline nằm trong phần tử chứa nó
+    @apply bg-text4 bg-opacity-10 rounded-xl py-3 px-5 inline-block;
+  }
+  .ql-contrainer.ql-snow,
+  .ql-editor {
+    @apply border-none font-primary text-sm;
+  }
+  .ql-editor {
+    @apply pt-10;
+  }
+  .ql-editor.ql-blank::before {
+    font-style: normal;
+    @apply text-sm not-italic text-text4;
+  }
+}
