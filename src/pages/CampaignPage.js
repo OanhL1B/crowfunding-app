@@ -40,6 +40,7 @@ const CampaignPage = () => {
         </div>
         <Button
           type="button"
+          // kind
           kind="ghost"
           className="px-8"
           href="/start-campaign"
@@ -48,6 +49,7 @@ const CampaignPage = () => {
         </Button>
       </div>
       <Heading number={4}>Your campaign</Heading>
+      {/* type= secondary để nó k phải default là được vì có 2 trường hợp thôi mà  */}
       <CampaignGrid type="secondary">
         <CampaignFeature></CampaignFeature>
         <CampaignFeature></CampaignFeature>
