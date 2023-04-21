@@ -1,5 +1,67 @@
 {
   "users": [],
   "categories": [],
-  "campaigns": []
+  "campaigns": [
+    {
+      "title": "123meomeo",
+      "short_description": "123meomeo",
+      "goal": "200",
+      "amount": "400",
+      "prefilled": "",
+      "video": "https://www.facebook.com/MTPicturesVietNam/videos/513306327675672",
+      "category": "architecture",
+      "featured_image": {
+        "medium": "https://i.ibb.co/k5kxf01/313047896-139933695457194-5308738020150797494-n.jpg",
+        "thumb": "https://i.ibb.co/Jm0K42Q/313047896-139933695457194-5308738020150797494-n.jpg",
+        "url": "https://i.ibb.co/xXPD0GH/313047896-139933695457194-5308738020150797494-n.jpg"
+      },
+      "country": "Vietnam",
+      "content": "<p>gâu gâu meo emo</p>",
+      "startDate": "2023-04-21T03:47:15.566Z",
+      "endDate": "2023-04-28T03:47:15.000Z",
+      "id": 1
+    },
+    {
+      "title": "123moemoe",
+      "short_description": "meo meo gâu gâu",
+      "goal": "",
+      "amount": "",
+      "prefilled": "",
+      "video": "",
+      "category": "education",
+      "featured_image": {
+        "medium": "https://i.ibb.co/MhKHZHM/Screenshot-2023-04-17-212130.png",
+        "thumb": "https://i.ibb.co/9vB0c0s/Screenshot-2023-04-17-212130.png",
+        "url": "https://i.ibb.co/X46PjPS/Screenshot-2023-04-17-212130.png"
+      },
+      "content": "<p>gâu meo</p>",
+      "startDate": "2023-04-21T03:57:15.847Z",
+      "endDate": "2023-04-21T03:57:15.847Z",
+      "id": 2
+    },
+    {
+      "title": "",
+      "short_description": "",
+      "goal": "",
+      "amount": "",
+      "prefilled": "",
+      "video": "",
+      "content": "",
+      "startDate": "2023-04-21T03:59:02.253Z",
+      "endDate": "2023-04-21T03:59:02.253Z",
+      "id": 3
+    },
+    {
+      "title": "",
+      "short_description": "",
+      "goal": "",
+      "amount": "",
+      "prefilled": "",
+      "video": "",
+      "content": "",
+      "startDate": "",
+      "endDate": "",
+      "id": 4
+    }
+  ]
 }

@@ -1,11 +1,11 @@
-// import useOnChange from "hooks/useOnChange";
+import useOnChange from "hooks/useOnChange";
 import ReactQuill, { Quill } from "react-quill";
 import React, { useMemo, useState } from "react";
-// import ImageUploader from "quill-image-uploader";
-// import ImageUpload from "components/image/ImageUpload";
+import ImageUploader from "quill-image-uploader";
+import ImageUpload from "components/image/ImageUpload";
 import FormRow from "components/common/FormRow";
 import FormGroup from "components/common/FormGroup";
-// import DatePicker from "react-date-picker";
+import DatePicker from "react-datepicker";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
@@ -14,38 +14,39 @@ import { Label } from "components/label";
 import { Input, Textarea } from "components/input";
 import { Dropdown } from "components/dropdown";
 import { Button } from "components/button";
-// import { apiURL, imgbbAPI } from "config/config";
+import { apiURL, imgbbAPI } from "config/config";
 import "react-quill/dist/quill.snow.css";
-import useOnChange from "hooks/useOnChange";
-// Quill.register("modules/imageUploader", ImageUploader);
+import "react-datepicker/dist/react-datepicker.css";
+Quill.register("modules/imageUploader", ImageUploader);
 
 const categoriesData = ["architecture", "education"];
 
 const CampaignAddNew = () => {
+  // theo dõi việc thay đổi của các giá trị dùng watch
   const { handleSubmit, control, setValue, reset, watch } = useForm();
   const getDropdownLabel = (name, defaultValue = "") => {
     const value = watch(name) || defaultValue;
     return value;
   };
   const [content, setContent] = React.useState("");
-  // const resetValues = () => {
-  //   setStartDate("");
-  //   setEndDate("");
-  //   reset({});
-  // };
+  const resetValues = () => {
+    setStartDate("");
+    setEndDate("");
+    reset({});
+  };
   const handleAddNewCampaign = async (values) => {
-    // try {
-    //   await axios.post(`${apiURL}/campaigns`, {
-    //     ...values,
-    //     content,
-    //     startDate,
-    //     endDate,
-    //   });
-    //   toast.success("Create campaign successfully");
-    //   resetValues();
-    // } catch (error) {
-    //   toast.error("Can not create new campaign");
-    // }
+    try {
+      await axios.post(`${apiURL}/campaigns`, {
+        ...values,
+        content,
+        startDate,
+        endDate,
+      });
+      toast.success("Create campaign successfully");
+      resetValues();
+    } catch (error) {
+      toast.error("Can not create new campaign");
+    }
     // values, startDate, endDate, content
   };
   // xem lại cách dùng useMemo: tránh re-render
@@ -59,21 +60,21 @@ const CampaignAddNew = () => {
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
         ["link", "image"],
       ],
-      // imageUploader: {
-      //   upload: async (file) => {
-      //     const bodyFormData = new FormData();
-      //     bodyFormData.append("image", file);
-      //     // const response = await axios({
-      //     //   method: "post",
-      //     //   url: imgbbAPI,
-      //     //   data: bodyFormData,
-      //     //   headers: {
-      //     //     "Content-Type": "multipart/form-data",
-      //     //   },
-      //     // });
-      //     return response.data.data.url;
-      //   },
-      // },
+      imageUploader: {
+        upload: async (file) => {
+          const bodyFormData = new FormData();
+          bodyFormData.append("image", file);
+          const response = await axios({
+            method: "post",
+            url: imgbbAPI,
+            data: bodyFormData,
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          return response.data.data.url;
+        },
+      },
     }),
     []
   );
@@ -157,10 +158,10 @@ const CampaignAddNew = () => {
           <FormRow>
             <FormGroup>
               <Label>Featured Image</Label>
-              {/* <ImageUpload
+              <ImageUpload
                 onChange={setValue}
                 name="featured_image"
-              ></ImageUpload> */}
+              ></ImageUpload>
             </FormGroup>
             <FormGroup></FormGroup>
           </FormRow>
@@ -215,6 +216,7 @@ const CampaignAddNew = () => {
               <Label>Country</Label>
               <Dropdown>
                 <Dropdown.Select
+                  // hay
                   placeholder={getDropdownLabel("country", "Select country")}
                 ></Dropdown.Select>
                 <Dropdown.List>
@@ -241,27 +243,33 @@ const CampaignAddNew = () => {
               </Dropdown>
             </FormGroup>
           </FormRow>
-          {/* <FormRow>
-            <FormGroup>
+          <FormRow>
+            <div className="flex flex-col mb-4 lg:mb-5 gap-y-2 lg:gap-x-3 ">
               <Label>Start Date</Label>
 
               <DatePicker
-                onChange={setStartDate}
+                onChange={(date) => setStartDate(date)}
                 value={startDate}
                 format="dd-MM-yyyy"
+                selected={startDate}
+                className="w-full p-2 px-6 py-4 text-sm font-medium bg-transparent border rounded-md border-strock text-text1 dark:border-darkStroke dark:placeholder:text-text2 dark:text-white placeholder:text-text-4"
               />
-            </FormGroup>
+            </div>
+
             <FormGroup>
               <Label>End Date</Label>
               <DatePicker
-                onChange={setEndDate}
+                onChange={(date) => setEndDate(date)}
                 value={endDate}
                 format="dd-MM-yyyy"
+                selected={endDate}
+                className="w-full p-2 px-6 py-4 text-sm font-medium bg-transparent border rounded-md border-strock text-text1 dark:border-darkStroke dark:placeholder:text-text2 dark:text-white placeholder:text-text-4"
               />
             </FormGroup>
-          </FormRow> */}
-          <div className="mt-10 text-center">
+          </FormRow>
+          <div className="mt-12 text-center">
             <Button
+              // phải để type là submit nha
               type="submit"
               className="px-10 mx-auto text-white bg-primary"
             >
