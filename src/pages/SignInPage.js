@@ -10,6 +10,8 @@ import { Label } from "components/label";
 import { Input } from "components/input";
 import { IconEyeToggle } from "components/icons";
 import { Button, ButtonGoogle } from "components/button";
+import { useDispatch } from "react-redux";
+import { authLogin } from "store/auth/auth-slice";
 
 const schema = yup
   .object({
@@ -39,8 +41,9 @@ const SignInPage = () => {
   // control để quản lý trạng thái của các trường form, và errors để hiển thị thông báo lỗi.
   // Trong đoạn code trên, các thuộc tính này được gán cho biến tương ứng thông qua destructuring.
   // bắt sự kiện onsubmit
+  const dispatch = useDispatch();
   const handleSignIp = (values) => {
-    // console.log("value", values);
+    dispatch(authLogin(values));
   };
   // customhook
   const { value: showPassword, handleToggleValue: handleTogglePassword } =

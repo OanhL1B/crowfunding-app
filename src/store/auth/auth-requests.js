@@ -9,3 +9,9 @@ export const requestAuthRegister = (data) => {
     ...data,
   });
 };
+
+export const requestAuthLogin = (data) => {
+  return axios.post("/auth/login", {
+    ...data,
+  });
+};
