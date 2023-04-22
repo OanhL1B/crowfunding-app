@@ -11,6 +11,8 @@ import { Label } from "components/label";
 import { Input } from "components/input";
 import { IconEyeToggle } from "components/icons";
 import { Button } from "components/button";
+import { useDispatch } from "react-redux";
+import { authRegister } from "store/auth/auth-slice";
 
 // dùng usehookform
 // khởi tạo 1 schema kiểm tra các quy tắc kiểm tra dữ liệu các trường của form
@@ -30,6 +32,7 @@ const schema = yup
 const SignUpPage = () => {
   const {
     handleSubmit,
+    reset,
     control,
     formState: { errors },
   } = useForm({
@@ -43,8 +46,16 @@ const SignUpPage = () => {
   // control để quản lý trạng thái của các trường form, và errors để hiển thị thông báo lỗi.
   // Trong đoạn code trên, các thuộc tính này được gán cho biến tương ứng thông qua destructuring.
   // bắt sự kiện onsubmit
-  const handleSignUp = (values) => {
-    // console.log("value", values);
+  const dispatch = useDispatch();
+  const handleSignUp = async (values) => {
+    //flow: 1
+    // sau khi ấn dispatch thì nó sẽ gọi cái authregister
+    try {
+      dispatch(authRegister(values));
+      reset({});
+    } catch (error) {
+      console.log("error", error);
+    }
   };
   // customhook
   const { value: acceptTerm, handleToggleValue: handleToggleTerm } =

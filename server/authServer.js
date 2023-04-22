@@ -13,6 +13,8 @@ const bcrypt = require("bcrypt");
 app.use(cors());
 const generateTokens = (payload) => {
   const { id, name } = payload;
+
+  // accessToken:
   const accessToken = jwt.sign({ id, name }, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: "5m",
   });

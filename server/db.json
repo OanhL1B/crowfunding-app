@@ -1,5 +1,20 @@
 {
-  "users": [],
+  "users": [
+    {
+      "id": 1,
+      "name": "Vũ Thị Hồng Oanh",
+      "password": "$2b$10$9jy1C3vIKTDlD8DiF4.BUOv188X0pGBXUWQEdyGzPml4cYnJzQHce",
+      "email": "oanh@gmail.com",
+      "refreshToken": null
+    },
+    {
+      "id": 2,
+      "name": "L1B",
+      "password": "$2b$10$c/nDXEdp4QZq/iDN69PVUu5UvZxrwLWcmJ9sdiDNkWCncSDcnMy4S",
+      "email": "l1b@gmail.com",
+      "refreshToken": null
+    }
+  ],
   "categories": [],
   "campaigns": [
     {
