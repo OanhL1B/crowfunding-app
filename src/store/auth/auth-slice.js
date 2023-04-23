@@ -1,6 +1,5 @@
 // slice: reducer
 const { createSlice } = require("@reduxjs/toolkit");
-
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -10,7 +9,7 @@ const authSlice = createSlice({
   reducers: {
     authLogin: (state, action) => ({
       ...state,
-      ...action.payload,
+      // ...action.payload,
     }),
     authRegister: (state, action) => ({
       ...state,
@@ -25,10 +24,8 @@ const authSlice = createSlice({
       ...state,
       ...action.payload,
     }),
-    authRefreshToken: (state, action) => ({
-      ...state,
-      ...action.payload,
-    }),
+    authRefreshToken: (state, action) => ({}),
+    authLogOut: (state, action) => ({}),
   },
 });
 
@@ -38,5 +35,6 @@ export const {
   authUpdateUser,
   authFetchMe,
   authRefreshToken,
+  authLogOut,
 } = authSlice.actions;
 export default authSlice.reducer;

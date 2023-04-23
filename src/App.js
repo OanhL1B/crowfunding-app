@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import LayoutPayment from "layouts/LayoutPayment";
 import { useDispatch, useSelector } from "react-redux";
 import { authRefreshToken, authUpdateUser } from "store/auth/auth-slice";
-import { getToken } from "utils/auth";
+import { getToken, logOut } from "utils/auth";
 
 const SignUpPage = lazy(() => import("./pages/SignUpPage"));
 const SignInPage = lazy(() => import("./pages/SignInPage"));
@@ -24,30 +24,53 @@ const customStyles = {
 Modal.setAppElement("#root");
 Modal.defaultStyles = {};
 function App() {
+  // const { user } = useSelector((state) => state.auth);
+  // console.log("user", user);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   if (user && user.id) {
+  //     const { access_token } = getToken();
+
+  //     dispatch(
+  //       authUpdateUser({
+  //         user: user,
+  //         access_token: access_token,
+  //       })
+  //     );
+  //   } else {
+  //     console.log("working");
+  //     const { refresh_token } = getToken();
+  //     console.log("refreshToken", refresh_token);
+  //     if (refresh_token) {
+  //       dispatch(authRefreshToken(refresh_token));
+  //     } else {
+  //       dispatch(authUpdateUser({}));
+  //       logOut();
+  //     }
+  //   }
+  // }, [dispatch, user]);
   const { user } = useSelector((state) => state.auth);
-  console.log("user", user);
   const dispatch = useDispatch();
   useEffect(() => {
     if (user && user.id) {
       const { access_token } = getToken();
-
+      console.log("useEffect ~ access_token:", access_token);
       dispatch(
         authUpdateUser({
           user: user,
-          access_token: access_token,
+          accessToken: access_token,
         })
       );
     } else {
-      console.log("working");
       const { refresh_token } = getToken();
-      console.log("refreshToken", refresh_token);
       if (refresh_token) {
         dispatch(authRefreshToken(refresh_token));
       } else {
         dispatch(authUpdateUser({}));
+        logOut();
       }
     }
-  }, [user]);
+  }, [dispatch, user]);
   return (
     <Suspense>
       <Routes>

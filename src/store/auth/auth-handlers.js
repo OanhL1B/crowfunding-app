@@ -9,7 +9,7 @@ import {
   requestAuthRegister,
 } from "./auth-requests";
 import { toast } from "react-toastify";
-import { saveToken } from "utils/auth";
+import { logOut, saveToken } from "utils/auth";
 import { authUpdateUser } from "./auth-slice";
 
 //flow 4
@@ -59,18 +59,55 @@ function* handleAuthFetchMe({ payload }) {
   }
 }
 
+// function* handleAuthRefreshToken({ payload }) {
+//   try {
+//     const response = yield call(requestAuthRefreshToken, payload);
+//     console.log("response", response);
+//     if (response.data) {
+//       saveToken(response.data.accessToken, response.data.refreshToken);
+//       yield handleAuthFetchMe({
+//         payload: response.data.accessToken,
+//       });
+//     } else {
+//       yield handleAuthLogOut();
+//     }
+//   } catch (error) {}
+// }
+// function* handleAuthLogOut() {
+//   yield put(
+//     authUpdateUser({
+//       user: undefined,
+//       accessToken: null,
+//     })
+//   );
+//   logOut();
+// }
 function* handleAuthRefreshToken({ payload }) {
   try {
     const response = yield call(requestAuthRefreshToken, payload);
-    console.log("response", response);
     if (response.data) {
       saveToken(response.data.accessToken, response.data.refreshToken);
-      yield handleAuthFetchMe({
+      yield call(handleAuthFetchMe, {
         payload: response.data.accessToken,
       });
     } else {
-      //logout
+      yield handleAuthLogOut();
     }
   } catch (error) {}
 }
-export { handleAuthLogin, handleAuthFetchMe, handleAuthRefreshToken };
+
+function* handleAuthLogOut() {
+  yield put(
+    authUpdateUser({
+      user: undefined,
+      accessToken: null,
+    })
+  );
+  logOut();
+}
+export {
+  handleAuthLogin,
+  handleAuthFetchMe,
+  handleAuthRefreshToken,
+  handleAuthLogOut,
+};
