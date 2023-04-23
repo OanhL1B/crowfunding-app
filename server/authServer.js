@@ -71,6 +71,7 @@ app.post("/auth/login", (req, res) => {
   });
 });
 
+//
 app.post("/token", (req, res) => {
   const refreshToken = req.body.refreshToken;
   if (!refreshToken) return res.sendStatus(401);
