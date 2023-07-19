@@ -60,7 +60,6 @@ const DashboardSidebar = () => {
       {/* duyệt qua sidebarLink để lấy được từng field nè */}
       {sidebarLinks.map((link) => {
         if (link.url === "/logout") {
-          console.log("voo ddaya");
           return (
             <button
               onClick={() => dispatch(authLogOut())}

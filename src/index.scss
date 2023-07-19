@@ -9,6 +9,9 @@
     -webkit-font-smoothing: antialiased;
     max-width: 1440px;
   }
+  .react-calendar {
+    width: 100%;
+  }
   input {
     @apply outline-none;
   }
